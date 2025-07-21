@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+# Workflow futtatása minden push esetén a main branch-en
+on:
+  push:
+    branches: [ main ]
+  
+  # Manuális futtatás is engedélyezve
+  workflow_dispatch:
+
+# Jogosultságok beállítása GitHub Pages deployment-hez
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Egyszerre csak egy deployment futhat
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        # A teljes projekt gyökérkönyvtár feltöltése
+        path: '.'
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4 
