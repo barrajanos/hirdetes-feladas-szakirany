@@ -708,7 +708,16 @@ window.setTimeout(GetAnalyticsSessionID.CallBack,1000);}};GetAnalyticsSessionID.
                 <i aria-hidden="true" class="fa fa-mortar-board"></i>
             </span>
             </div>
-            <select name="qualification[0][qual_id]" class="form-control" id="qualification[0][qual_id]"><option value="1">Általános iskola</option><option value="2">Szakiskola / szakmunkás képző</option><option value="3">Középiskola</option><option value="6">Felsőoktatási szakképzés</option><option value="4">Főiskola</option><option value="5">Egyetem</option></select>
+            <select name="qualification[0][qual_id]" class="form-control" id="qualification[0][qual_id]">
+                <option value="" disabled selected>Kérem válasszon!</option>
+                <option value="0">Nincs szükség végzettségre</option>
+                <option value="1">Általános iskola</option>
+                <option value="2">Szakiskola / szakmunkás képző</option>
+                <option value="3">Középiskola</option>
+                <option value="6">Felsőoktatási szakképzés</option>
+                <option value="4">Főiskola</option>
+                <option value="5">Egyetem</option>
+            </select>
 
                     </div>
     
@@ -731,8 +740,7 @@ window.setTimeout(GetAnalyticsSessionID.CallBack,1000);}};GetAnalyticsSessionID.
                     <input type="text" 
                            name="szakiranyu_vegzettseg" 
                            class="form-control" 
-                           id="szakiranyu_vegzettseg" 
-                           placeholder="Pl.: Informatikai mérnök, Közgazdász, Jogász...">
+                           id="szakiranyu_vegzettseg">
                 </div>
                 <div class="form-comment mt-2">
                     <span>Ha szüksége van specifikus szakirányú végzettségre.</span>
@@ -2555,8 +2563,8 @@ window.setTimeout(GetAnalyticsSessionID.CallBack,1000);}};GetAnalyticsSessionID.
             qualificationSelect.addEventListener('change', function() {
                 const selectedValue = this.value;
                 
-                // Ha nem "Általános iskola" (value="1") van kiválasztva és nem üres
-                if (selectedValue && selectedValue !== '1') {
+                // Ha nem "Nincs szükség végzettségre" (value="0") vagy "Általános iskola" (value="1") van kiválasztva és nem üres
+                if (selectedValue && selectedValue !== '0' && selectedValue !== '1') {
                     // Megjelenítjük a szakirányú végzettség mezőt smooth animációval
                     szakiranyuRow.style.display = 'block';
                     szakiranyuRow.style.opacity = '0';
